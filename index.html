@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>中华装饰 - 建筑装饰工程有限公司</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; color: #333; line-height: 1.6; background: #f9f9f9; overflow-x: hidden; }
+
+/* Scroll animation base */
+.fade-up { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.fade-up.visible { opacity: 1; transform: translateY(0); }
+.fade-left { opacity: 0; transform: translateX(-40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.fade-left.visible { opacity: 1; transform: translateX(0); }
+.fade-right { opacity: 0; transform: translateX(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.fade-right.visible { opacity: 1; transform: translateX(0); }
+.scale-in { opacity: 0; transform: scale(0.9); transition: opacity 0.6s ease, transform 0.6s ease; }
+.scale-in.visible { opacity: 1; transform: scale(1); }
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+.delay-4 { transition-delay: 0.4s; }
+.delay-5 { transition-delay: 0.5s; }
+
+/* Nav */
+.nav { position: fixed; top: 0; width: 100%; background: rgba(255,255,255,0.85); backdrop-filter: blur(12px); box-shadow: 0 1px 20px rgba(0,0,0,0.05); z-index: 999; transition: all 0.3s ease; }
+.nav.scrolled { background: rgba(255,255,255,0.97); box-shadow: 0 2px 30px rgba(0,0,0,0.1); }
+.nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; height: 64px; transition: height 0.3s; }
+.nav.scrolled .nav-inner { height: 56px; }
+.logo { font-size: 24px; font-weight: 800; color: #8B0000; letter-spacing: 2px; transition: font-size 0.3s; }
+.nav.scrolled .logo { font-size: 20px; }
+.logo span { font-size: 12px; font-weight: 400; color: #999; display: block; letter-spacing: 1px; margin-top: -2px; }
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a { text-decoration: none; color: #555; font-size: 14px; transition: color 0.3s; position: relative; }
+.nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 50%; width: 0; height: 2px; background: #8B0000; transition: all 0.3s; transform: translateX(-50%); }
+.nav-links a:hover { color: #8B0000; }
+.nav-links a:hover::after { width: 100%; }
+.nav-phone { background: #8B0000; color: #fff; padding: 8px 18px; border-radius: 4px; font-size: 14px; text-decoration: none; font-weight: 600; transition: all 0.3s; animation: pulse-phone 2s infinite; }
+.nav-phone:hover { background: #a00000; transform: translateY(-1px); box-shadow: 0 4px 15px rgba(139,0,0,0.3); }
+@keyframes pulse-phone { 0%,100% { box-shadow: 0 0 0 0 rgba(139,0,0,0.4); } 50% { box-shadow: 0 0 0 10px rgba(139,0,0,0); } }
+
+/* Hero */
+.hero { margin-top: 0; height: 100vh; min-height: 600px; background: linear-gradient(135deg, #1a0a0a 0%, #3d1515 30%, #5c2020 60%, #8B0000 100%); position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.hero-particles { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+.hero::before { content: ''; position: absolute; top: -50%; right: -20%; width: 700px; height: 700px; border: 1px solid rgba(255,255,255,0.06); border-radius: 50%; animation: rotate-slow 60s linear infinite; }
+.hero::after { content: ''; position: absolute; bottom: -40%; left: -15%; width: 500px; height: 500px; border: 1px solid rgba(255,255,255,0.04); border-radius: 50%; animation: rotate-slow 80s linear infinite reverse; }
+@keyframes rotate-slow { to { transform: rotate(360deg); } }
+.hero-geo { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 30L30 60L0 30Z' fill='none' stroke='rgba(255,255,255,0.025)'/%3E%3C/svg%3E"); opacity: 0.4; z-index: 0; }
+.hero-content { position: relative; z-index: 2; text-align: center; color: #fff; padding: 20px; }
+.hero h1 { font-size: clamp(36px, 7vw, 72px); font-weight: 900; letter-spacing: 8px; margin-bottom: 16px; text-shadow: 0 2px 40px rgba(0,0,0,0.3); animation: hero-title 1.2s ease; }
+@keyframes hero-title { from { opacity: 0; transform: translateY(30px); letter-spacing: 20px; } to { opacity: 1; transform: translateY(0); letter-spacing: 8px; } }
+.hero p { font-size: clamp(14px, 2vw, 20px); opacity: 0.85; max-width: 600px; margin: 0 auto 32px; animation: hero-p 1.2s ease 0.3s both; }
+@keyframes hero-p { from { opacity: 0; transform: translateY(20px); } to { opacity: 0.85; transform: translateY(0); } }
+.hero .subtitle { font-size: 14px; letter-spacing: 6px; opacity: 0.6; margin-bottom: 24px; animation: hero-sub 1s ease 0.15s both; }
+@keyframes hero-sub { from { opacity: 0; letter-spacing: 12px; } to { opacity: 0.6; letter-spacing: 6px; } }
+.hero-cta { display: inline-block; background: transparent; border: 2px solid rgba(255,255,255,0.5); color: #fff; padding: 16px 44px; text-decoration: none; font-size: 14px; letter-spacing: 3px; transition: all 0.4s; position: relative; overflow: hidden; animation: hero-cta 1.2s ease 0.6s both; }
+@keyframes hero-cta { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.hero-cta::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: #fff; transition: left 0.4s; z-index: -1; }
+.hero-cta:hover::before { left: 0; }
+.hero-cta:hover { color: #8B0000; border-color: #fff; }
+.hero-stats { display: flex; gap: 48px; justify-content: center; margin-top: 48px; animation: hero-stats 1.2s ease 0.9s both; }
+@keyframes hero-stats { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.hero-stats .stat { text-align: center; }
+.hero-stats .num { font-size: 42px; font-weight: 800; background: linear-gradient(135deg, #fff, #ffcccc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero-stats .label { font-size: 13px; opacity: 0.6; letter-spacing: 3px; margin-top: 4px; }
+.hero-scroll-hint { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 2; animation: bounce-down 2s infinite; cursor: pointer; }
+.hero-scroll-hint span { display: block; width: 24px; height: 40px; border: 2px solid rgba(255,255,255,0.3); border-radius: 12px; position: relative; }
+.hero-scroll-hint span::after { content: ''; position: absolute; top: 6px; left: 50%; transform: translateX(-50%); width: 4px; height: 8px; background: rgba(255,255,255,0.5); border-radius: 2px; animation: scroll-dot 2s infinite; }
+@keyframes bounce-down { 0%,100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(10px); } }
+@keyframes scroll-dot { 0% { top: 6px; opacity: 1; } 100% { top: 24px; opacity: 0; } }
+
+/* Sections */
+.section { padding: 100px 20px; max-width: 1200px; margin: 0 auto; }
+.section-title { text-align: center; margin-bottom: 60px; }
+.section-title h2 { font-size: 34px; font-weight: 800; color: #222; letter-spacing: 3px; }
+.section-title .line { width: 50px; height: 3px; background: linear-gradient(90deg, transparent, #8B0000, transparent); margin: 20px auto; border-radius: 2px; }
+.section-title p { color: #888; font-size: 15px; max-width: 500px; margin: 0 auto; }
+
+/* About */
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.about-text h3 { font-size: 24px; color: #8B0000; margin-bottom: 20px; }
+.about-text p { color: #666; margin-bottom: 14px; font-size: 15px; }
+.about-text .features { list-style: none; margin-top: 24px; }
+.about-text .features li { padding: 10px 0 10px 28px; font-size: 14px; color: #555; position: relative; transition: transform 0.3s; }
+.about-text .features li:hover { transform: translateX(6px); color: #8B0000; }
+.about-text .features li::before { content: '◆'; color: #8B0000; position: absolute; left: 0; font-size: 10px; top: 12px; }
+.about-image { background: linear-gradient(135deg, #8B0000, #3d1515); height: 420px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.25); font-size: 52px; font-weight: 900; letter-spacing: 10px; border-radius: 4px; position: relative; overflow: hidden; }
+.about-image::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.03) 50%, transparent 60%); animation: shimmer 3s infinite; }
+@keyframes shimmer { 0% { transform: translateX(-100%) rotate(45deg); } 100% { transform: translateX(100%) rotate(45deg); } }
+
+/* Services */
+.services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.service-card { background: #fff; padding: 40px 28px; text-align: center; box-shadow: 0 2px 16px rgba(0,0,0,0.04); transition: all 0.4s cubic-bezier(0.25,0.46,0.45,0.94); border-radius: 4px; position: relative; overflow: hidden; }
+.service-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, #8B0000, #cc3333); transform: scaleX(0); transition: transform 0.4s; }
+.service-card:hover { transform: translateY(-6px); box-shadow: 0 12px 32px rgba(139,0,0,0.1); }
+.service-card:hover::before { transform: scaleX(1); }
+.service-icon { width: 70px; height: 70px; margin: 0 auto 22px; background: linear-gradient(135deg, #8B0000, #c0392b); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-size: 28px; transition: transform 0.4s; }
+.service-card:hover .service-icon { transform: rotateY(180deg); }
+.service-card h3 { font-size: 18px; margin-bottom: 10px; color: #222; }
+.service-card p { font-size: 13px; color: #888; line-height: 1.8; }
+
+/* Projects */
+.projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.project-card { position: relative; overflow: hidden; aspect-ratio: 4/3; background: #ddd; cursor: pointer; }
+.project-card img, .project-card .img-placeholder { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94); }
+.project-card:hover .img-placeholder { transform: scale(1.08); }
+.project-card .overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 24px; color: #fff; transform: translateY(20px); transition: transform 0.4s; }
+.project-card:hover .overlay { transform: translateY(0); }
+.project-card .overlay h4 { font-size: 17px; margin-bottom: 4px; }
+.project-card .overlay span { font-size: 12px; opacity: 0.8; }
+.project-tag { position: absolute; top: 14px; left: 14px; background: #8B0000; color: #fff; padding: 5px 12px; font-size: 11px; letter-spacing: 2px; z-index: 2; }
+
+/* Process */
+.process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+.process-steps::before { content: ''; position: absolute; top: 32px; left: 12.5%; width: 75%; height: 2px; background: linear-gradient(90deg, #ddd, #8B0000, #ddd); z-index: 0; }
+.process-step { text-align: center; padding: 24px; position: relative; z-index: 1; }
+.process-num { width: 68px; height: 68px; line-height: 68px; background: linear-gradient(135deg, #8B0000, #c0392b); color: #fff; font-size: 26px; font-weight: 800; border-radius: 50%; margin: 0 auto 18px; position: relative; transition: all 0.4s; box-shadow: 0 4px 16px rgba(139,0,0,0.2); }
+.process-step:hover .process-num { transform: scale(1.15); box-shadow: 0 8px 28px rgba(139,0,0,0.4); }
+.process-step h4 { font-size: 16px; color: #222; margin-bottom: 8px; }
+.process-step p { font-size: 13px; color: #999; }
+
+/* Partners */
+.partners { background: #fff; padding: 56px 0; overflow: hidden; }
+.partners-track { display: flex; gap: 60px; animation: partners-scroll 20s linear infinite; width: max-content; }
+.partners-track:hover { animation-play-state: paused; }
+@keyframes partners-scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+.partner-item { color: #bbb; font-size: 22px; font-weight: 700; letter-spacing: 4px; white-space: nowrap; transition: color 0.3s; cursor: default; }
+.partner-item:hover { color: #8B0000; }
+
+/* CTA */
+.cta-banner { background: linear-gradient(135deg, #8B0000 0%, #5c1010 50%, #3d1515 100%); color: #fff; text-align: center; padding: 80px 20px; position: relative; overflow: hidden; }
+.cta-banner::before { content: ''; position: absolute; top: -30%; left: -10%; width: 400px; height: 400px; border: 1px solid rgba(255,255,255,0.06); border-radius: 50%; animation: rotate-slow 40s linear infinite; }
+.cta-banner h2 { font-size: 30px; margin-bottom: 14px; letter-spacing: 3px; position: relative; }
+.cta-banner p { opacity: 0.8; margin-bottom: 28px; font-size: 15px; position: relative; }
+.cta-btn { display: inline-block; background: #fff; color: #8B0000; padding: 16px 44px; text-decoration: none; font-size: 15px; font-weight: 700; letter-spacing: 2px; transition: all 0.3s; position: relative; overflow: hidden; }
+.cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+.cta-btn::after { content: ''; position: absolute; top: 50%; left: 50%; width: 0; height: 0; background: rgba(139,0,0,0.1); border-radius: 50%; transition: all 0.5s; transform: translate(-50%,-50%); }
+.cta-btn:hover::after { width: 400px; height: 400px; }
+
+/* Footer */
+.footer { background: #111; color: #888; padding: 56px 20px 28px; font-size: 13px; }
+.footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 36px; }
+.footer h4 { color: #fff; font-size: 15px; margin-bottom: 18px; }
+.footer a { color: #888; text-decoration: none; display: block; margin-bottom: 10px; transition: all 0.3s; }
+.footer a:hover { color: #8B0000; padding-left: 6px; }
+.footer .logo-text { font-size: 26px; font-weight: 800; color: #fff; letter-spacing: 3px; margin-bottom: 14px; }
+.footer-bottom { max-width: 1200px; margin: 36px auto 0; padding-top: 24px; border-top: 1px solid #222; text-align: center; font-size: 12px; }
+
+/* Mobile */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .about-grid, .services-grid, .projects-grid { grid-template-columns: 1fr; }
+  .process-steps { grid-template-columns: repeat(2, 1fr); }
+  .process-steps::before { display: none; }
+  .hero-stats { gap: 28px; flex-wrap: wrap; }
+  .hero-stats .num { font-size: 28px; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .section { padding: 60px 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <div class="logo">中华装饰<span>ZHONGHUA DECORATION</span></div>
+    <ul class="nav-links">
+      <li><a href="#home">首页</a></li>
+      <li><a href="#about">关于我们</a></li>
+      <li><a href="#services">服务项目</a></li>
+      <li><a href="#projects">工程案例</a></li>
+      <li><a href="#contact">联系我们</a></li>
+    </ul>
+    <a href="tel:400-XXX-XXXX" class="nav-phone">☎ 400-XXX-XXXX</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="home">
+  <canvas class="hero-particles" id="particles"></canvas>
+  <div class="hero-geo"></div>
+  <div class="hero-content">
+    <div class="subtitle">建筑装饰工程 · 设计施工一体化</div>
+    <h1>中华装饰</h1>
+    <p>传承东方美学，缔造品质空间。<br>专注建筑装饰行业二十年，用匠心打磨每一个细节。</p>
+    <a href="#contact" class="hero-cta">获取免费方案</a>
+    <div class="hero-stats">
+      <div class="stat"><div class="num"><span data-count="20">0</span>+</div><div class="label">年行业经验</div></div>
+      <div class="stat"><div class="num"><span data-count="500">0</span>+</div><div class="label">完工项目</div></div>
+      <div class="stat"><div class="num"><span data-count="98">0</span><span style="font-size:20px;background:none;-webkit-text-fill-color:#fff;">%</span></div><div class="label">客户满意度</div></div>
+    </div>
+  </div>
+  <div class="hero-scroll-hint" onclick="document.getElementById('about').scrollIntoView()">
+    <span></span>
+  </div>
+</section>
+
+<!-- About -->
+<section class="section" id="about">
+  <div class="section-title fade-up">
+    <h2>关于我们</h2>
+    <div class="line"></div>
+    <p>以专业铸就品质，以诚信赢得信赖</p>
+  </div>
+  <div class="about-grid">
+    <div class="about-text fade-left">
+      <h3>中华装饰 · 匠心传承</h3>
+      <p>中华装饰成立于2005年，是一家集建筑装饰设计、施工、材料供应为一体的综合性装饰企业。公司拥有国家建筑装饰装修工程专业承包一级资质，通过了ISO9001质量管理体系认证。</p>
+      <p>二十年来，我们始终坚持以"品质为本、客户至上"的经营理念，为酒店、写字楼、商业综合体、高端住宅等项目提供全链条装饰解决方案。</p>
+      <ul class="features">
+        <li>建筑装饰装修工程专业承包 一级资质</li>
+        <li>建筑装饰工程设计专项 甲级资质</li>
+        <li>ISO 9001 质量管理体系认证企业</li>
+        <li>全国建筑装饰行业 AAA 级信用企业</li>
+      </ul>
+    </div>
+    <div class="about-image fade-right">中华装饰</div>
+  </div>
+</section>
+
+<!-- Services -->
+<section class="section" id="services" style="background:#fff;">
+  <div class="section-title fade-up">
+    <h2>服务项目</h2>
+    <div class="line"></div>
+    <p>一站式建筑装饰解决方案</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card fade-up delay-1">
+      <div class="service-icon">🏢</div>
+      <h3>办公空间装饰</h3>
+      <p>写字楼、总部办公、产业园区室内设计与施工，打造高效舒适的办公环境</p>
+    </div>
+    <div class="service-card fade-up delay-2">
+      <div class="service-icon">🏨</div>
+      <h3>酒店商业装饰</h3>
+      <p>星级酒店、连锁酒店、商业综合体精装修，提升空间商业价值</p>
+    </div>
+    <div class="service-card fade-up delay-3">
+      <div class="service-icon">🏠</div>
+      <h3>高端住宅装饰</h3>
+      <p>别墅大宅、精装楼盘、样板间设计与施工，定制专属品质生活</p>
+    </div>
+    <div class="service-card fade-up delay-1">
+      <div class="service-icon">🏛</div>
+      <h3>公共建筑装饰</h3>
+      <p>学校、医院、展馆等公共设施装饰，兼顾功能性与美学体验</p>
+    </div>
+    <div class="service-card fade-up delay-2">
+      <div class="service-icon">✏️</div>
+      <h3>室内设计</h3>
+      <p>专业设计团队提供概念方案、效果图、施工图等全套设计服务</p>
+    </div>
+    <div class="service-card fade-up delay-3">
+      <div class="service-icon">🔧</div>
+      <h3>维修改造</h3>
+      <p>旧楼翻新、局部改造、应急维修，快速响应降低对运营的影响</p>
+    </div>
+  </div>
+</section>
+
+<!-- Projects -->
+<section class="section" id="projects">
+  <div class="section-title fade-up">
+    <h2>工程案例</h2>
+    <div class="line"></div>
+    <p>五百余个项目见证专业实力</p>
+  </div>
+  <div class="projects-grid">
+    <div class="project-card scale-in delay-1"><div class="img-placeholder" style="background:linear-gradient(135deg,#2d1b1b,#5c3030);width:100%;height:100%;"></div><div class="project-tag">办公空间</div><div class="overlay"><h4>某科技集团总部大楼</h4><span>建筑面积：12,000㎡</span></div></div>
+    <div class="project-card scale-in delay-2"><div class="img-placeholder" style="background:linear-gradient(135deg,#1a2a1a,#3d553d);width:100%;height:100%;"></div><div class="project-tag">酒店</div><div class="overlay"><h4>某国际五星级酒店</h4><span>建筑面积：28,000㎡</span></div></div>
+    <div class="project-card scale-in delay-3"><div class="img-placeholder" style="background:linear-gradient(135deg,#2a1a2a,#553d55);width:100%;height:100%;"></div><div class="project-tag">商业</div><div class="overlay"><h4>某城市商业综合体</h4><span>建筑面积：45,000㎡</span></div></div>
+    <div class="project-card scale-in delay-1"><div class="img-placeholder" style="background:linear-gradient(135deg,#1a1a2d,#3d3d5c);width:100%;height:100%;"></div><div class="project-tag">住宅</div><div class="overlay"><h4>某高端别墅区精装</h4><span>建筑面积：8,000㎡</span></div></div>
+    <div class="project-card scale-in delay-2"><div class="img-placeholder" style="background:linear-gradient(135deg,#2d1a1a,#5c3d3d);width:100%;height:100%;"></div><div class="project-tag">公共建筑</div><div class="overlay"><h4>某省级文化展览馆</h4><span>建筑面积：15,000㎡</span></div></div>
+    <div class="project-card scale-in delay-3"><div class="img-placeholder" style="background:linear-gradient(135deg,#1a2d1a,#3d5c3d);width:100%;height:100%;"></div><div class="project-tag">办公空间</div><div class="overlay"><h4>某金融大厦写字楼</h4><span>建筑面积：20,000㎡</span></div></div>
+  </div>
+</section>
+
+<!-- Process -->
+<section class="section" style="background:#fff;">
+  <div class="section-title fade-up">
+    <h2>服务流程</h2>
+    <div class="line"></div>
+    <p>标准化流程，让每一个项目井然有序</p>
+  </div>
+  <div class="process-steps">
+    <div class="process-step fade-up delay-1"><div class="process-num">1</div><h4>需求沟通</h4><p>深入了解项目需求<br>确定设计方向与预算</p></div>
+    <div class="process-step fade-up delay-2"><div class="process-num">2</div><h4>方案设计</h4><p>多轮方案比选<br>效果图与施工图交付</p></div>
+    <div class="process-step fade-up delay-3"><div class="process-num">3</div><h4>施工管理</h4><p>标准化施工流程<br>全程质量监控</p></div>
+    <div class="process-step fade-up delay-4"><div class="process-num">4</div><h4>验收交付</h4><p>第三方联合验收<br>无忧售后保障</p></div>
+  </div>
+</section>
+
+<!-- Partners -->
+<div class="partners">
+  <div class="partners-track" id="partners-track">
+    <div class="partner-item">万科地产</div><div class="partner-item">万达集团</div><div class="partner-item">华润置地</div><div class="partner-item">保利发展</div><div class="partner-item">碧桂园</div>
+    <div class="partner-item">万科地产</div><div class="partner-item">万达集团</div><div class="partner-item">华润置地</div><div class="partner-item">保利发展</div><div class="partner-item">碧桂园</div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-banner fade-up" id="contact">
+  <h2>开启您的空间升级之旅</h2>
+  <p>免费咨询 · 免费量房 · 免费方案</p>
+  <a href="tel:400-XXX-XXXX" class="cta-btn">立即咨询：400-XXX-XXXX</a>
+</div>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div><div class="logo-text">中华装饰</div><p style="margin-top:12px;">建筑装饰工程有限公司<br>传承东方美学 · 缔造品质空间</p></div>
+    <div><h4>服务项目</h4><a href="#">办公空间装饰</a><a href="#">酒店商业装饰</a><a href="#">高端住宅装饰</a><a href="#">公共建筑装饰</a></div>
+    <div><h4>快速链接</h4><a href="#about">关于我们</a><a href="#projects">工程案例</a><a href="#services">服务项目</a><a href="#contact">联系我们</a></div>
+    <div><h4>联系我们</h4><p>📞 400-XXX-XXXX</p><p>📧 info@zhonghuazs.com</p><p>📍 中国 · 北京</p><p style="font-size:11px;margin-top:8px;">周一至周日 9:00-18:00</p></div>
+  </div>
+  <div class="footer-bottom">© 2025 中华装饰 建筑装饰工程有限公司 | 保留所有权利 | 京ICP备XXXXXXXX号</div>
+</footer>
+
+<script>
+// ======== Canvas粒子 ========
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+let particles = [];
+function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+class Particle {
+  constructor() { this.reset(); this.y = Math.random() * canvas.height; }
+  reset() {
+    this.x = Math.random() * canvas.width;
+    this.y = -10;
+    this.size = Math.random() * 2 + 0.5;
+    this.speed = Math.random() * 0.6 + 0.2;
+    this.opacity = Math.random() * 0.5 + 0.1;
+  }
+  update() {
+    this.y += this.speed;
+    if (this.y > canvas.height + 10) this.reset();
+  }
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255,255,255,${this.opacity})`;
+    ctx.fill();
+  }
+}
+
+for (let i = 0; i < 80; i++) particles.push(new Particle());
+function animateParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => { p.update(); p.draw(); });
+  requestAnimationFrame(animateParticles);
+}
+animateParticles();
+
+// ======== Intersection Observer ========
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      // 数字跳动
+      entry.target.querySelectorAll('[data-count]').forEach(el => {
+        if (el.dataset.animated) return;
+        el.dataset.animated = '1';
+        const target = parseInt(el.dataset.count);
+        const duration = 2000;
+        const start = performance.now();
+        function tick(now) {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = Math.floor(eased * target);
+          if (progress < 1) requestAnimationFrame(tick);
+          else el.textContent = target;
+        }
+        requestAnimationFrame(tick);
+      });
+    }
+  });
+}, { threshold: 0.15 });
+
+document.querySelectorAll('.fade-up, .fade-left, .fade-right, .scale-in').forEach(el => observer.observe(el));
+
+// ======== Nav scroll ========
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('nav');
+  nav.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// ======== Partners 无缝滚动 ========
+const track = document.getElementById('partners-track');
+if (track) {
+  track.addEventListener('mouseenter', () => track.style.animationPlayState = 'paused');
+  track.addEventListener('mouseleave', () => track.style.animationPlayState = 'running');
+}
+</script>
+
+</body>
+</html>

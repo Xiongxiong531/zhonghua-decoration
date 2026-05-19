@@ -86,9 +86,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft
 .about-text .features li { padding: 10px 0 10px 28px; font-size: 14px; color: #555; position: relative; transition: transform 0.3s; }
 .about-text .features li:hover { transform: translateX(6px); color: #8B0000; }
 .about-text .features li::before { content: '◆'; color: #8B0000; position: absolute; left: 0; font-size: 10px; top: 12px; }
-.about-image { background: linear-gradient(135deg, #8B0000, #3d1515); height: 420px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.25); font-size: 52px; font-weight: 900; letter-spacing: 10px; border-radius: 4px; position: relative; overflow: hidden; }
-.about-image::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.03) 50%, transparent 60%); animation: shimmer 3s infinite; }
-@keyframes shimmer { 0% { transform: translateX(-100%) rotate(45deg); } 100% { transform: translateX(100%) rotate(45deg); } }
+.about-image { background: #222; height: 420px; border-radius: 4px; position: relative; overflow: hidden; }
+.about-image img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
+.about-image:hover img { transform: scale(1.05); }
 
 /* Services */
 .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
@@ -103,9 +103,9 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft
 
 /* Projects */
 .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.project-card { position: relative; overflow: hidden; aspect-ratio: 4/3; background: #ddd; cursor: pointer; }
-.project-card img, .project-card .img-placeholder { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94); }
-.project-card:hover .img-placeholder { transform: scale(1.08); }
+.project-card { position: relative; overflow: hidden; aspect-ratio: 4/3; background: #222; cursor: pointer; }
+.project-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94); }
+.project-card:hover img { transform: scale(1.08); }
 .project-card .overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(0,0,0,0.8)); padding: 24px; color: #fff; transform: translateY(20px); transition: transform 0.4s; }
 .project-card:hover .overlay { transform: translateY(0); }
 .project-card .overlay h4 { font-size: 17px; margin-bottom: 4px; }
@@ -217,7 +217,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft
         <li>全国建筑装饰行业 AAA 级信用企业</li>
       </ul>
     </div>
-    <div class="about-image fade-right">中华装饰</div>
+    <div class="about-image fade-right"><img src="images/optimized/about.jpg" alt="中华装饰"></div>
   </div>
 </section>
 
@@ -270,12 +270,12 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft
     <p>五百余个项目见证专业实力</p>
   </div>
   <div class="projects-grid">
-    <div class="project-card scale-in delay-1"><div class="img-placeholder" style="background:linear-gradient(135deg,#2d1b1b,#5c3030);width:100%;height:100%;"></div><div class="project-tag">办公空间</div><div class="overlay"><h4>某科技集团总部大楼</h4><span>建筑面积：12,000㎡</span></div></div>
-    <div class="project-card scale-in delay-2"><div class="img-placeholder" style="background:linear-gradient(135deg,#1a2a1a,#3d553d);width:100%;height:100%;"></div><div class="project-tag">酒店</div><div class="overlay"><h4>某国际五星级酒店</h4><span>建筑面积：28,000㎡</span></div></div>
-    <div class="project-card scale-in delay-3"><div class="img-placeholder" style="background:linear-gradient(135deg,#2a1a2a,#553d55);width:100%;height:100%;"></div><div class="project-tag">商业</div><div class="overlay"><h4>某城市商业综合体</h4><span>建筑面积：45,000㎡</span></div></div>
-    <div class="project-card scale-in delay-1"><div class="img-placeholder" style="background:linear-gradient(135deg,#1a1a2d,#3d3d5c);width:100%;height:100%;"></div><div class="project-tag">住宅</div><div class="overlay"><h4>某高端别墅区精装</h4><span>建筑面积：8,000㎡</span></div></div>
-    <div class="project-card scale-in delay-2"><div class="img-placeholder" style="background:linear-gradient(135deg,#2d1a1a,#5c3d3d);width:100%;height:100%;"></div><div class="project-tag">公共建筑</div><div class="overlay"><h4>某省级文化展览馆</h4><span>建筑面积：15,000㎡</span></div></div>
-    <div class="project-card scale-in delay-3"><div class="img-placeholder" style="background:linear-gradient(135deg,#1a2d1a,#3d5c3d);width:100%;height:100%;"></div><div class="project-tag">办公空间</div><div class="overlay"><h4>某金融大厦写字楼</h4><span>建筑面积：20,000㎡</span></div></div>
+    <div class="project-card scale-in delay-1"><img src="images/optimized/project1_office.jpg" alt="科技集团总部大楼" loading="lazy"><div class="project-tag">办公空间</div><div class="overlay"><h4>某科技集团总部大楼</h4><span>建筑面积：12,000㎡</span></div></div>
+    <div class="project-card scale-in delay-2"><img src="images/optimized/project2_hotel.jpg" alt="国际五星级酒店" loading="lazy"><div class="project-tag">酒店</div><div class="overlay"><h4>某国际五星级酒店</h4><span>建筑面积：28,000㎡</span></div></div>
+    <div class="project-card scale-in delay-3"><img src="images/optimized/project3_commercial.jpg" alt="城市商业综合体" loading="lazy"><div class="project-tag">商业</div><div class="overlay"><h4>某城市商业综合体</h4><span>建筑面积：45,000㎡</span></div></div>
+    <div class="project-card scale-in delay-1"><img src="images/optimized/project4_villa.jpg" alt="高端别墅区精装" loading="lazy"><div class="project-tag">住宅</div><div class="overlay"><h4>某高端别墅区精装</h4><span>建筑面积：8,000㎡</span></div></div>
+    <div class="project-card scale-in delay-2"><img src="images/optimized/project5_public.jpg" alt="省级文化展览馆" loading="lazy"><div class="project-tag">公共建筑</div><div class="overlay"><h4>某省级文化展览馆</h4><span>建筑面积：15,000㎡</span></div></div>
+    <div class="project-card scale-in delay-3"><img src="images/optimized/project6_office2.jpg" alt="金融大厦写字楼" loading="lazy"><div class="project-tag">办公空间</div><div class="overlay"><h4>某金融大厦写字楼</h4><span>建筑面积：20,000㎡</span></div></div>
   </div>
 </section>
 

@@ -177,17 +177,20 @@ body::before {
     <p>填写信息，我们将为您量身定制装饰方案</p>
   </div>
 
-  <form id="consult-form">
+  <form id="consult-form" action="https://formsubmit.co/2362467229@qq.com" method="POST">
+    <input type="hidden" name="_subject" value="中华装饰 - 新方案咨询">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_template" value="table">
     <!-- 姓名 -->
     <div class="form-group">
       <label>您的姓名</label>
-      <input type="text" id="name" placeholder="请输入您的称呼" required>
+      <input type="text" name="姓名" id="name" placeholder="请输入您的称呼" required>
     </div>
 
     <!-- 联系方式 -->
     <div class="form-group">
       <label>联系方式</label>
-      <input type="tel" id="contact" placeholder="手机号码或微信" required>
+      <input type="tel" name="联系方式" id="contact" placeholder="手机号码或微信" required>
     </div>
 
     <!-- 公装/家装 -->
@@ -195,11 +198,11 @@ body::before {
       <label>项目类型</label>
       <div class="toggle-group">
         <div class="toggle-option">
-          <input type="radio" name="project-type" id="type-commercial" value="公装" checked>
+          <input type="radio" name="项目类型" id="type-commercial" value="公装" checked>
           <label for="type-commercial"><span class="icon">🏢</span> 公装</label>
         </div>
         <div class="toggle-option">
-          <input type="radio" name="project-type" id="type-residential" value="家装">
+          <input type="radio" name="项目类型" id="type-residential" value="家装">
           <label for="type-residential"><span class="icon">🏠</span> 家装</label>
         </div>
       </div>
@@ -208,7 +211,7 @@ body::before {
     <!-- 用户需求 -->
     <div class="form-group">
       <label>您的需求</label>
-      <textarea id="requirement" placeholder="请描述您的项目情况、装修面积、预算范围、风格偏好以及具体要求……"></textarea>
+      <textarea name="用户需求" id="requirement" placeholder="请描述您的项目情况、装修面积、预算范围、风格偏好以及具体要求……"></textarea>
     </div>
 
     <!-- 提交 -->
@@ -227,34 +230,11 @@ body::before {
 <script>
 const form = document.getElementById('consult-form');
 const btn = document.getElementById('submit-btn');
-const toast = document.getElementById('toast');
 
-form.addEventListener('submit', function(e) {
-  e.preventDefault();
+form.addEventListener('submit', function() {
   btn.classList.add('loading');
   btn.textContent = '提交中……';
-
-  // Get values
-  const name = document.getElementById('name').value.trim();
-  const contact = document.getElementById('contact').value.trim();
-  const type = document.querySelector('input[name="project-type"]:checked').value;
-  const requirement = document.getElementById('requirement').value.trim();
-
-  // Simulate submission
-  setTimeout(() => {
-    btn.classList.remove('loading');
-    btn.textContent = '提 交 方 案 申 请';
-    
-    // Show toast
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 3000);
-    
-    // Reset form
-    form.reset();
-    document.getElementById('type-commercial').checked = true;
-    
-    console.log('提交数据:', { name, contact, type, requirement });
-  }, 1200);
+  // Form submits normally to formsubmit.co → email
 });
 </script>
 

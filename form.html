@@ -230,12 +230,57 @@ body::before {
 <script>
 const form = document.getElementById('consult-form');
 const btn = document.getElementById('submit-btn');
+const toast = document.getElementById('toast');
 
-form.addEventListener('submit', function() {
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
   btn.classList.add('loading');
   btn.textContent = '提交中……';
-  // Form submits normally to formsubmit.co → email
+
+  const data = new FormData(form);
+  const name = data.get('姓名');
+  const contact = data.get('联系方式');
+  const type = data.get('项目类型');
+  const req = data.get('用户需求') || '未填写';
+
+  // Try formsubmit.co first (5s timeout)
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 5000);
+
+  fetch('https://formsubmit.co/ajax/2362467229@qq.com', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      姓名: name, 联系方式: contact, 项目类型: type, 用户需求: req,
+      _subject: '中华装饰 - 新方案咨询', _template: 'table', _captcha: 'false'
+    }),
+    signal: controller.signal
+  })
+  .then(r => r.json())
+  .then(data => {
+    clearTimeout(timeout);
+    showSuccess();
+  })
+  .catch(() => {
+    clearTimeout(timeout);
+    // Fallback: open email client
+    const subject = encodeURIComponent('中华装饰 - 新方案咨询');
+    const body = encodeURIComponent(
+      `姓名：${name}\n联系方式：${contact}\n项目类型：${type}\n用户需求：${req}`
+    );
+    window.location.href = `mailto:2362467229@qq.com?subject=${subject}&body=${body}`;
+    showSuccess();
+  });
 });
+
+function showSuccess() {
+  btn.classList.remove('loading');
+  btn.textContent = '提 交 方 案 申 请';
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 4000);
+  form.reset();
+  document.getElementById('type-commercial').checked = true;
+}
 </script>
 
 </body>

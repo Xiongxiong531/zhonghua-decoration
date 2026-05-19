@@ -112,7 +112,31 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft
 .project-card .overlay span { font-size: 12px; opacity: 0.8; }
 .project-tag { position: absolute; top: 14px; left: 14px; background: #8B0000; color: #fff; padding: 5px 12px; font-size: 11px; letter-spacing: 2px; z-index: 2; }
 
-/* Process */
+/* Modal */
+.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 9999; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.modal.active { display: block; animation: fadeIn 0.3s; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.modal-close { position: fixed; top: 20px; right: 20px; width: 44px; height: 44px; background: rgba(255,255,255,0.15); border: none; color: #fff; font-size: 24px; cursor: pointer; z-index: 10001; border-radius: 50%; display: flex; align-items: center; justify-content: center; transition: all 0.3s; backdrop-filter: blur(10px); }
+.modal-close:hover { background: rgba(255,255,255,0.3); transform: rotate(90deg); }
+.modal-content { max-width: 900px; margin: 60px auto; padding: 0 20px 40px; }
+.modal-header { text-align: center; color: #fff; margin-bottom: 32px; }
+.modal-header .tag { display: inline-block; background: #8B0000; color: #fff; padding: 4px 16px; font-size: 12px; letter-spacing: 3px; margin-bottom: 12px; }
+.modal-header h2 { font-size: 28px; letter-spacing: 2px; margin-bottom: 8px; }
+.modal-header .info { color: #aaa; font-size: 14px; letter-spacing: 1px; }
+.modal-header .desc { color: #ccc; font-size: 14px; margin-top: 12px; line-height: 1.8; max-width: 600px; margin-left: auto; margin-right: auto; }
+.modal-gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
+.modal-gallery img { width: 100%; height: 220px; object-fit: cover; cursor: pointer; border-radius: 2px; transition: transform 0.3s; }
+.modal-gallery img:hover { transform: scale(1.03); }
+.modal-gallery .cover-img { grid-column: 1 / -1; height: auto; max-height: 500px; }
+/* Lightbox */
+.lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.96); z-index: 99999; align-items: center; justify-content: center; }
+.lightbox.active { display: flex; }
+.lightbox img { max-width: 95%; max-height: 90vh; object-fit: contain; }
+.lightbox-close { position: fixed; top: 20px; right: 20px; width: 44px; height: 44px; background: rgba(255,255,255,0.15); border: none; color: #fff; font-size: 24px; cursor: pointer; z-index: 100001; border-radius: 50%; }
+.lightbox-prev, .lightbox-next { position: fixed; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.12); border: none; color: #fff; font-size: 32px; cursor: pointer; z-index: 100001; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.lightbox-prev { left: 16px; }
+.lightbox-next { right: 16px; }
+.lightbox-prev:hover, .lightbox-next:hover, .lightbox-close:hover { background: rgba(255,255,255,0.3); }
 .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
 .process-steps::before { content: ''; position: absolute; top: 32px; left: 12.5%; width: 75%; height: 2px; background: linear-gradient(90deg, #ddd, #8B0000, #ddd); z-index: 0; }
 .process-step { text-align: center; padding: 24px; position: relative; z-index: 1; }
@@ -267,15 +291,17 @@ body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft
   <div class="section-title fade-up">
     <h2>工程案例</h2>
     <div class="line"></div>
-    <p>五百余个项目见证专业实力</p>
+    <p>与全球顶级酒店品牌及地产开发商深度合作</p>
   </div>
   <div class="projects-grid">
-    <div class="project-card scale-in delay-1"><img src="images/optimized/proj1.jpg" alt="厦门五缘湾凯悦酒店" loading="lazy"><div class="project-tag">酒店</div><div class="overlay"><h4>厦门五缘湾凯悦酒店</h4><span>建筑面积：35,000㎡ · 301间客房</span></div></div>
-    <div class="project-card scale-in delay-2"><img src="images/optimized/proj2.jpg" alt="武汉费尔蒙酒店" loading="lazy"><div class="project-tag">酒店</div><div class="overlay"><h4>武汉费尔蒙酒店</h4><span>建筑面积：48,000㎡ · 318间客房</span></div></div>
-    <div class="project-card scale-in delay-3"><img src="images/optimized/proj3.jpg" alt="上海漕河泾万丽酒店" loading="lazy"><div class="project-tag">商业</div><div class="overlay"><h4>上海漕河泾万丽酒店</h4><span>建筑面积：19,000㎡ · 383间客房</span></div></div>
-    <div class="project-card scale-in delay-1"><img src="images/optimized/proj4.jpg" alt="北京恒大麗宫别墅" loading="lazy"><div class="project-tag">豪宅</div><div class="overlay"><h4>北京恒大麗宫别墅</h4><span>室内面积：2,200㎡ · 花园4,000㎡</span></div></div>
-    <div class="project-card scale-in delay-2"><img src="images/optimized/proj5.jpg" alt="镇江凯悦酒店" loading="lazy"><div class="project-tag">酒店</div><div class="overlay"><h4>镇江凯悦酒店</h4><span>建筑面积：45,000㎡ · 328间客房</span></div></div>
-    <div class="project-card scale-in delay-3"><img src="images/optimized/proj6.jpg" alt="南京仙林凯悦酒店" loading="lazy"><div class="project-tag">酒店</div><div class="overlay"><h4>南京仙林凯悦酒店</h4><span>建筑面积：30,000㎡ · 335间客房</span></div></div>
+    <!-- Row 1: Hotels -->
+    <div class="project-card scale-in delay-1" onclick="openProject('xiamen-hyatt')"><img src="images/projects/xiamen-hyatt/cover.jpg" alt="厦门五缘湾凯悦酒店" loading="lazy"><div class="project-tag">酒店</div><div class="overlay"><h4>厦门五缘湾凯悦酒店</h4><span>35,000㎡ · 301间客房</span></div></div>
+    <div class="project-card scale-in delay-2" onclick="openProject('wuhan-fairmont')"><img src="images/projects/wuhan-fairmont/cover.jpg" alt="武汉费尔蒙酒店" loading="lazy"><div class="project-tag">酒店</div><div class="overlay"><h4>武汉费尔蒙酒店</h4><span>48,000㎡ · 318间客房</span></div></div>
+    <div class="project-card scale-in delay-3" onclick="openProject('zhenjiang-hyatt')"><img src="images/projects/zhenjiang-hyatt/cover.jpg" alt="镇江凯悦酒店" loading="lazy"><div class="project-tag">酒店</div><div class="overlay"><h4>镇江凯悦酒店</h4><span>45,000㎡ · 328间客房</span></div></div>
+    <!-- Row 2: Villas -->
+    <div class="project-card scale-in delay-1" onclick="openProject('beijing-villa')"><img src="images/projects/beijing-villa/cover.jpg" alt="北京恒大麗宫别墅" loading="lazy"><div class="project-tag">豪宅</div><div class="overlay"><h4>北京恒大麗宫别墅</h4><span>室内2,200㎡ · 花园4,000㎡</span></div></div>
+    <div class="project-card scale-in delay-2" onclick="openProject('chengdu-villa')"><img src="images/projects/chengdu-villa/cover.jpg" alt="成都領秀别墅" loading="lazy"><div class="project-tag">豪宅</div><div class="overlay"><h4>成都領秀别墅</h4><span>室内1,800㎡ · 花园1,000㎡</span></div></div>
+    <div class="project-card scale-in delay-3" onclick="openProject('tianjin-rosewood')"><img src="images/projects/tianjin-rosewood/cover.jpg" alt="天津瑰丽酒店公寓" loading="lazy"><div class="project-tag">公寓</div><div class="overlay"><h4>天津瑰丽酒店公寓</h4><span>29,000㎡ · 249间</span></div></div>
   </div>
 </section>
 
@@ -401,6 +427,103 @@ if (track) {
   track.addEventListener('mouseenter', () => track.style.animationPlayState = 'paused');
   track.addEventListener('mouseleave', () => track.style.animationPlayState = 'running');
 }
+</script>
+
+<!-- Modal -->
+<div class="modal" id="project-modal">
+  <button class="modal-close" onclick="closeModal()">✕</button>
+  <div class="modal-content" id="modal-content"></div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <button class="lightbox-prev" onclick="event.stopPropagation();navLightbox(-1)">‹</button>
+  <button class="lightbox-next" onclick="event.stopPropagation();navLightbox(1)">›</button>
+  <img src="" id="lightbox-img">
+</div>
+
+<script>
+// ======== Project Data ========
+const projects = {
+  'xiamen-hyatt':{
+    name:'厦门五缘湾凯悦酒店',cat:'酒店',info:'35,000㎡ · 301间客房 · 2017年开业',desc:'厦门建发集团开发，DAS Concepts 设计。含大堂、大堂吧、全日餐厅、中餐厅、贵宾包房、宴会厅及客房。',
+    imgs:['cover.jpg','detail_6.jpg','detail_7.jpg','detail_8.jpg','detail_9.jpg','detail_10.jpg','detail_11.jpg','detail_12.jpg']
+  },
+  'wuhan-fairmont':{
+    name:'武汉费尔蒙酒店',cat:'酒店',info:'48,000㎡ · 318间客房 · 2019年开业',desc:'泛海集团开发，位于武汉江汉区淮海路，DAS Concepts 设计。法式优雅融合现代奢华。',
+    imgs:['cover.jpg','detail_22.jpg','detail_23.jpg','detail_24.jpg','detail_25.jpg','detail_26.jpg','detail_27.jpg','detail_28.jpg']
+  },
+  'zhenjiang-hyatt':{
+    name:'镇江凯悦酒店',cat:'酒店',info:'45,000㎡ · 328间客房 · 2018年开业',desc:'苏宁集团开发，位于镇江大市口核心商圈，DAS Concepts 设计。含接待大堂、空中大堂及宴会设施。',
+    imgs:['cover.jpg','detail_14.jpg','detail_15.jpg','detail_16.jpg','detail_17.jpg','detail_18.jpg','detail_19.jpg','detail_20.jpg']
+  },
+  'beijing-villa':{
+    name:'北京恒大麗宫别墅',cat:'豪宅',info:'室内2,200㎡ · 花园4,000㎡',desc:'私人业主定制。含客厅、娱乐室、家庭娱乐室、餐厅、主卧套房及主卫，室内设计+园林+整体施工。',
+    imgs:['cover.jpg','detail_7.jpg','detail_8.jpg','detail_9.jpg','detail_10.jpg','detail_11.jpg','detail_12.jpg','detail_13.jpg','detail_14.jpg']
+  },
+  'chengdu-villa':{
+    name:'成都領秀别墅',cat:'豪宅',info:'室内1,800㎡ · 花园1,000㎡',desc:'私人业主定制。建筑外立面设计+结构设计+室内设计+整体施工，全方位打造独栋豪宅。',
+    imgs:['cover.jpg','detail_16.jpg','detail_17.jpg','detail_18.jpg','detail_19.jpg','detail_20.jpg','detail_21.jpg','detail_22.jpg','detail_23.jpg','detail_24.jpg','detail_25.jpg']
+  },
+  'tianjin-rosewood':{
+    name:'天津瑰丽酒店公寓',cat:'公寓',info:'29,000㎡ · 249间',desc:'新世界集团开发，位于天津滨海区，DAS Concepts 设计。奢华酒店式公寓，融合居住与酒店服务。',
+    imgs:['cover.jpg','detail_42.jpg','detail_43.jpg','detail_44.jpg']
+  }
+};
+
+let currentProj = null, lightboxIdx = 0;
+
+function openProject(id) {
+  currentProj = id;
+  const p = projects[id];
+  const base = 'images/projects/' + id + '/';
+  const coverHtml = `<img src="${base}${p.imgs[0]}" class="cover-img" onclick="openLightbox(0)" style="cursor:pointer">`;
+  const detailHtml = p.imgs.slice(1).map((f,i) => 
+    `<img src="${base}${f}" onclick="openLightbox(${i+1})" loading="lazy">`
+  ).join('');
+  
+  document.getElementById('modal-content').innerHTML = `
+    <div class="modal-header">
+      <div class="tag">${p.cat}</div>
+      <h2>${p.name}</h2>
+      <div class="info">${p.info}</div>
+      <div class="desc">${p.desc}</div>
+    </div>
+    <div class="modal-gallery">${coverHtml}${detailHtml}</div>
+  `;
+  document.getElementById('project-modal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('project-modal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function openLightbox(idx) {
+  lightboxIdx = idx;
+  const f = projects[currentProj].imgs[idx];
+  document.getElementById('lightbox-img').src = 'images/projects/' + currentProj + '/' + f;
+  document.getElementById('lightbox').classList.add('active');
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('active');
+}
+
+function navLightbox(dir) {
+  const imgs = projects[currentProj].imgs;
+  lightboxIdx = (lightboxIdx + dir + imgs.length) % imgs.length;
+  document.getElementById('lightbox-img').src = 'images/projects/' + currentProj + '/' + imgs[lightboxIdx];
+}
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeLightbox(); closeModal(); }
+  if (e.key === 'ArrowLeft' && document.getElementById('lightbox').classList.contains('active')) navLightbox(-1);
+  if (e.key === 'ArrowRight' && document.getElementById('lightbox').classList.contains('active')) navLightbox(1);
+});
 </script>
 
 </body>

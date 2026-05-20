@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" dir="ltr" id="html-root">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>获取免费方案 - 中华装饰</title>
+<title data-i18n="page-title">获取免费方案 - 中华装饰</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
@@ -16,6 +16,7 @@ body {
   padding: 20px;
   overflow-x: hidden;
 }
+html[dir="rtl"] body { font-family: "Segoe UI", "Traditional Arabic", "Arabic Typesetting", Tahoma, sans-serif; direction: rtl; }
 body::before {
   content: ''; position: fixed; top: -30%; right: -20%;
   width: 600px; height: 600px;
@@ -26,14 +27,32 @@ body::before {
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
+/* Top bar */
+.top-bar {
+  position: fixed; top: 0; left: 0; right: 0;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 20px 24px; z-index: 10;
+}
+html[dir="rtl"] .top-bar { direction: rtl; }
+
 /* Back button */
 .back-btn {
-  position: fixed; top: 24px; left: 24px;
   color: rgba(255,255,255,0.5); text-decoration: none;
   font-size: 14px; letter-spacing: 2px;
-  transition: color 0.3s; z-index: 10;
+  transition: color 0.3s;
 }
 .back-btn:hover { color: #fff; }
+
+/* Language Switcher */
+.lang-switcher { display: flex; gap: 0; }
+.lang-btn { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.5); padding: 4px 9px; font-size: 11px; cursor: pointer; transition: all 0.3s; letter-spacing: 1px; }
+.lang-btn:first-child { border-radius: 4px 0 0 4px; }
+.lang-btn:last-child { border-radius: 0 4px 4px 0; }
+.lang-btn:not(:first-child) { border-left: none; }
+.lang-btn.active { background: #8B0000; color: #fff; border-color: #8B0000; }
+.lang-btn:hover:not(.active) { background: rgba(255,255,255,0.1); color: #fff; }
+html[dir="rtl"] .lang-btn:first-child { border-radius: 0 4px 4px 0; }
+html[dir="rtl"] .lang-btn:last-child { border-radius: 4px 0 0 4px; }
 
 /* Container */
 .container {
@@ -94,10 +113,7 @@ body::before {
 
 /* Toggle */
 .toggle-group { display: flex; gap: 12px; }
-.toggle-option {
-  flex: 1;
-  position: relative;
-}
+.toggle-option { flex: 1; position: relative; }
 .toggle-option input { display: none; }
 .toggle-option label {
   display: flex; align-items: center; justify-content: center;
@@ -167,14 +183,22 @@ body::before {
 </head>
 <body>
 
-<a href="index.html" class="back-btn">← 返回首页</a>
+<!-- Top bar -->
+<div class="top-bar">
+  <a href="index.html" class="back-btn" data-i18n="back-btn">← 返回首页</a>
+  <div class="lang-switcher">
+    <button class="lang-btn active" data-lang="zh" onclick="setLanguage('zh')">中</button>
+    <button class="lang-btn" data-lang="en" onclick="setLanguage('en')">EN</button>
+    <button class="lang-btn" data-lang="ar" onclick="setLanguage('ar')">عربي</button>
+  </div>
+</div>
 
 <div class="container">
   <div class="header">
-    <div class="sub">Free Consultation</div>
-    <h1>获取免费方案</h1>
+    <div class="sub" data-i18n="form-sub">Free Consultation</div>
+    <h1 data-i18n="form-title">获取免费方案</h1>
     <div class="line"></div>
-    <p>填写信息，我们将为您量身定制装饰方案</p>
+    <p data-i18n="form-desc">填写信息，我们将为您量身定制装饰方案</p>
   </div>
 
   <form id="consult-form" action="https://formsubmit.co/2362467229@qq.com" method="POST">
@@ -183,49 +207,126 @@ body::before {
     <input type="hidden" name="_template" value="table">
     <!-- 姓名 -->
     <div class="form-group">
-      <label>您的姓名</label>
-      <input type="text" name="姓名" id="name" placeholder="请输入您的称呼" required>
+      <label data-i18n="form-name-label">您的姓名</label>
+      <input type="text" name="姓名" id="name" data-i18n-placeholder="form-name-placeholder" placeholder="请输入您的称呼" required>
     </div>
 
     <!-- 联系方式 -->
     <div class="form-group">
-      <label>联系方式</label>
-      <input type="tel" name="联系方式" id="contact" placeholder="手机号码或微信" required>
+      <label data-i18n="form-contact-label">联系方式</label>
+      <input type="tel" name="联系方式" id="contact" data-i18n-placeholder="form-contact-placeholder" placeholder="手机号码或微信" required>
     </div>
 
     <!-- 公装/家装 -->
     <div class="form-group">
-      <label>项目类型</label>
+      <label data-i18n="form-type-label">项目类型</label>
       <div class="toggle-group">
         <div class="toggle-option">
           <input type="radio" name="项目类型" id="type-commercial" value="公装" checked>
-          <label for="type-commercial"><span class="icon">🏢</span> 公装</label>
+          <label for="type-commercial"><span class="icon">🏢</span> <span data-i18n="form-type-commercial">公装</span></label>
         </div>
         <div class="toggle-option">
           <input type="radio" name="项目类型" id="type-residential" value="家装">
-          <label for="type-residential"><span class="icon">🏠</span> 家装</label>
+          <label for="type-residential"><span class="icon">🏠</span> <span data-i18n="form-type-residential">家装</span></label>
         </div>
       </div>
     </div>
 
     <!-- 用户需求 -->
     <div class="form-group">
-      <label>您的需求</label>
-      <textarea name="用户需求" id="requirement" placeholder="请描述您的项目情况、装修面积、预算范围、风格偏好以及具体要求……"></textarea>
+      <label data-i18n="form-req-label">您的需求</label>
+      <textarea name="用户需求" id="requirement" data-i18n-placeholder="form-req-placeholder" placeholder="请描述您的项目情况、装修面积、预算范围、风格偏好以及具体要求……"></textarea>
     </div>
 
     <!-- 提交 -->
-    <button type="submit" class="submit-btn" id="submit-btn">提 交 方 案 申 请</button>
+    <button type="submit" class="submit-btn" id="submit-btn" data-i18n="form-submit">提 交 方 案 申 请</button>
   </form>
 
-  <div class="footer-note">
+  <div class="footer-note" data-i18n="form-footer-note">
     免费咨询 · 免费量房 · 免费方案<br>
     咨询热线：400-XXX-XXXX
   </div>
 </div>
 
 <!-- Toast -->
-<div class="toast" id="toast">✓ 提交成功，我们将尽快与您联系</div>
+<div class="toast" id="toast" data-i18n="form-toast-success">✓ 提交成功，我们将尽快与您联系</div>
+
+<!-- ====== TRANSLATIONS ====== -->
+<script>
+const i18n = {
+  zh: {
+    'page-title':'获取免费方案 - 中华装饰','back-btn':'← 返回首页',
+    'form-sub':'Free Consultation','form-title':'获取免费方案','form-desc':'填写信息，我们将为您量身定制装饰方案',
+    'form-name-label':'您的姓名','form-name-placeholder':'请输入您的称呼',
+    'form-contact-label':'联系方式','form-contact-placeholder':'手机号码或微信',
+    'form-type-label':'项目类型','form-type-commercial':'公装','form-type-residential':'家装',
+    'form-req-label':'您的需求','form-req-placeholder':'请描述您的项目情况、装修面积、预算范围、风格偏好以及具体要求……',
+    'form-submit':'提 交 方 案 申 请','form-submitting':'提交中……',
+    'form-footer-note':'免费咨询 · 免费量房 · 免费方案<br>咨询热线：400-XXX-XXXX',
+    'form-toast-success':'✓ 提交成功，我们将尽快与您联系'
+  },
+  en: {
+    'page-title':'Free Quote - Zhonghua Decoration','back-btn':'← Back to Home',
+    'form-sub':'Free Consultation','form-title':'Get a Free Quote','form-desc':'Fill in your details and we will create a custom decoration proposal for you.',
+    'form-name-label':'Your Name','form-name-placeholder':'Please enter your name',
+    'form-contact-label':'Contact','form-contact-placeholder':'Phone number or WeChat',
+    'form-type-label':'Project Type','form-type-commercial':'Commercial','form-type-residential':'Residential',
+    'form-req-label':'Your Requirements','form-req-placeholder':'Please describe your project, area, budget, style preferences and specific requirements...',
+    'form-submit':'SUBMIT REQUEST','form-submitting':'Submitting...',
+    'form-footer-note':'Free Consultation · Free Measurement · Free Proposal<br>Hotline: 400-XXX-XXXX',
+    'form-toast-success':'✓ Submitted successfully! We will contact you soon.'
+  },
+  ar: {
+    'page-title':'استشارة مجانية - تشونغهوا للديكور','back-btn':'→ العودة للرئيسية',
+    'form-sub':'استشارة مجانية','form-title':'احصل على استشارة مجانية','form-desc':'املأ بياناتك وسنقوم بإعداد مقترح ديكور مخصص لك.',
+    'form-name-label':'اسمك','form-name-placeholder':'الرجاء إدخال اسمك',
+    'form-contact-label':'معلومات الاتصال','form-contact-placeholder':'رقم الهاتف أو الويتشات',
+    'form-type-label':'نوع المشروع','form-type-commercial':'تجاري','form-type-residential':'سكني',
+    'form-req-label':'متطلباتك','form-req-placeholder':'يرجى وصف مشروعك، المساحة، الميزانية، تفضيلات النمط والمتطلبات المحددة...',
+    'form-submit':'تقديم الطلب','form-submitting':'جارٍ التقديم...',
+    'form-footer-note':'استشارة مجانية · قياس مجاني · مخطط مجاني<br>الخط الساخن: 400-XXX-XXXX',
+    'form-toast-success':'✓ تم التقديم بنجاح! سنتواصل معك قريباً.'
+  }
+};
+
+// ====== LANGUAGE SWITCHING ======
+function setLanguage(lang) {
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  const btn = document.querySelector(`.lang-btn[data-lang="${lang}"]`);
+  if (btn) btn.classList.add('active');
+
+  const html = document.getElementById('html-root');
+  html.setAttribute('lang', lang === 'ar' ? 'ar' : lang === 'en' ? 'en' : 'zh-CN');
+  html.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+
+  // Update page title
+  document.title = i18n[lang]['page-title'];
+
+  // Update data-i18n elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (i18n[lang] && i18n[lang][key]) {
+      el.innerHTML = i18n[lang][key];
+    }
+  });
+
+  // Update placeholders
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    if (i18n[lang] && i18n[lang][key]) {
+      el.setAttribute('placeholder', i18n[lang][key]);
+    }
+  });
+
+  localStorage.setItem('zhonghua-lang', lang);
+}
+
+// Init language on load
+(function() {
+  const saved = localStorage.getItem('zhonghua-lang') || 'zh';
+  setLanguage(saved);
+})();
+</script>
 
 <script>
 const form = document.getElementById('consult-form');
@@ -235,7 +336,7 @@ const toast = document.getElementById('toast');
 form.addEventListener('submit', function(e) {
   e.preventDefault();
   btn.classList.add('loading');
-  btn.textContent = '提交中……';
+  btn.textContent = i18n[document.getElementById('html-root').getAttribute('lang') === 'ar' ? 'ar' : document.getElementById('html-root').getAttribute('lang') === 'en' ? 'en' : 'zh']['form-submitting'];
 
   const data = new FormData(form);
   const name = data.get('姓名');
@@ -263,7 +364,6 @@ form.addEventListener('submit', function(e) {
   })
   .catch(() => {
     clearTimeout(timeout);
-    // Fallback: open email client
     const subject = encodeURIComponent('中华装饰 - 新方案咨询');
     const body = encodeURIComponent(
       `姓名：${name}\n联系方式：${contact}\n项目类型：${type}\n用户需求：${req}`
@@ -275,11 +375,11 @@ form.addEventListener('submit', function(e) {
 
 function showSuccess() {
   btn.classList.remove('loading');
-  btn.textContent = '提 交 方 案 申 请';
+  const lang = document.getElementById('html-root').getAttribute('lang') === 'ar' ? 'ar' : document.getElementById('html-root').getAttribute('lang') === 'en' ? 'en' : 'zh';
+  btn.textContent = i18n[lang]['form-submit'];
   toast.classList.add('show');
   setTimeout(() => toast.classList.remove('show'), 4000);
   form.reset();
-  document.getElementById('type-commercial').checked = true;
 }
 </script>
 

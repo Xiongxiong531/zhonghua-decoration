@@ -265,7 +265,7 @@ html[dir="rtl"] .hero::after { left: auto; right: -15%; }
     <div class="hero-stats fade-up">
       <div class="stat"><div class="num"><span data-count="20">0</span>+</div><div class="label" data-i18n="hero-stat-years">年行业经验</div></div>
       <div class="stat"><div class="num"><span data-count="10000">0</span>+</div><div class="label" data-i18n="hero-stat-projects">完工项目</div></div>
-      <div class="stat"><div class="num"><span data-count="99">0</span><span style="font-size:20px;background:none;-webkit-text-fill-color:#fff;">%</span></div><div class="label" data-i18n="hero-stat-satisfaction">客户满意度</div></div>
+      <div class="stat"><div class="num"><span data-count="99.99">0</span><span style="font-size:20px;background:none;-webkit-text-fill-color:#fff;">%</span></div><div class="label" data-i18n="hero-stat-satisfaction">客户满意度</div></div>
     </div>
   </div>
   <div class="hero-scroll-hint" onclick="document.getElementById('about').scrollIntoView()">
@@ -627,15 +627,17 @@ const observer = new IntersectionObserver((entries) => {
       entry.target.querySelectorAll('[data-count]').forEach(el => {
         if (el.dataset.animated) return;
         el.dataset.animated = '1';
-        const target = parseInt(el.dataset.count);
+        const target = parseFloat(el.dataset.count);
+        const hasDecimals = target % 1 !== 0;
         const duration = 2000;
         const start = performance.now();
         function tick(now) {
           const progress = Math.min((now - start) / duration, 1);
           const eased = 1 - Math.pow(1 - progress, 3);
-          el.textContent = Math.floor(eased * target);
+          const val = eased * target;
+          el.textContent = hasDecimals ? val.toFixed(2) : Math.floor(val);
           if (progress < 1) requestAnimationFrame(tick);
-          else el.textContent = target;
+          else el.textContent = hasDecimals ? target.toFixed(2) : target;
         }
         requestAnimationFrame(tick);
       });
@@ -650,15 +652,17 @@ document.querySelectorAll('.fade-up, .fade-left, .fade-right, .scale-in').forEac
   function animateCounter(el) {
     if (el.dataset.animated) return;
     el.dataset.animated = '1';
-    const target = parseInt(el.dataset.count);
+    const target = parseFloat(el.dataset.count);
+    const hasDecimals = target % 1 !== 0;
     const duration = 2000;
     const start = performance.now();
     function tick(now) {
       const progress = Math.min((now - start) / duration, 1);
       const eased = 1 - Math.pow(1 - progress, 3);
-      el.textContent = Math.floor(eased * target);
+      const val = eased * target;
+      el.textContent = hasDecimals ? val.toFixed(2) : Math.floor(val);
       if (progress < 1) requestAnimationFrame(tick);
-      else el.textContent = target;
+      else el.textContent = hasDecimals ? target.toFixed(2) : target;
     }
     requestAnimationFrame(tick);
   }

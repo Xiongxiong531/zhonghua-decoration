@@ -201,7 +201,7 @@ html[dir="rtl"] .lang-btn:last-child { border-radius: 4px 0 0 4px; }
     <p data-i18n="form-desc">填写信息，我们将为您量身定制装饰方案</p>
   </div>
 
-  <form id="consult-form" action="https://formsubmit.co/2362467229@qq.com" method="POST">
+  <form id="consult-form" action="https://formsubmit.co/Chenxianhong1980@163.com" method="POST">
     <input type="hidden" name="_subject" value="中华装饰 - 新方案咨询">
     <input type="hidden" name="_captcha" value="false">
     <input type="hidden" name="_template" value="table">
@@ -244,7 +244,7 @@ html[dir="rtl"] .lang-btn:last-child { border-radius: 4px 0 0 4px; }
 
   <div class="footer-note" data-i18n="form-footer-note">
     免费咨询 · 免费量房 · 免费方案<br>
-    咨询热线：400-XXX-XXXX
+    咨询热线：+966500619443
   </div>
 </div>
 
@@ -262,7 +262,7 @@ const i18n = {
     'form-type-label':'项目类型','form-type-commercial':'公装','form-type-residential':'家装',
     'form-req-label':'您的需求','form-req-placeholder':'请描述您的项目情况、装修面积、预算范围、风格偏好以及具体要求……',
     'form-submit':'提 交 方 案 申 请','form-submitting':'提交中……',
-    'form-footer-note':'免费咨询 · 免费量房 · 免费方案<br>咨询热线：400-XXX-XXXX',
+    'form-footer-note':'免费咨询 · 免费量房 · 免费方案<br>咨询热线：+966500619443',
     'form-toast-success':'✓ 提交成功，我们将尽快与您联系'
   },
   en: {
@@ -273,7 +273,7 @@ const i18n = {
     'form-type-label':'Project Type','form-type-commercial':'Commercial','form-type-residential':'Residential',
     'form-req-label':'Your Requirements','form-req-placeholder':'Please describe your project, area, budget, style preferences and specific requirements...',
     'form-submit':'SUBMIT REQUEST','form-submitting':'Submitting...',
-    'form-footer-note':'Free Consultation · Free Measurement · Free Proposal<br>Hotline: 400-XXX-XXXX',
+    'form-footer-note':'Free Consultation · Free Measurement · Free Proposal<br>Hotline: +966500619443',
     'form-toast-success':'✓ Submitted successfully! We will contact you soon.'
   },
   ar: {
@@ -284,7 +284,7 @@ const i18n = {
     'form-type-label':'نوع المشروع','form-type-commercial':'تجاري','form-type-residential':'سكني',
     'form-req-label':'متطلباتك','form-req-placeholder':'يرجى وصف مشروعك، المساحة، الميزانية، تفضيلات النمط والمتطلبات المحددة...',
     'form-submit':'تقديم الطلب','form-submitting':'جارٍ التقديم...',
-    'form-footer-note':'استشارة مجانية · قياس مجاني · مخطط مجاني<br>الخط الساخن: 400-XXX-XXXX',
+    'form-footer-note':'استشارة مجانية · قياس مجاني · مخطط مجاني<br>الخط الساخن: +966500619443',
     'form-toast-success':'✓ تم التقديم بنجاح! سنتواصل معك قريباً.'
   }
 };
@@ -348,7 +348,7 @@ form.addEventListener('submit', function(e) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 5000);
 
-  fetch('https://formsubmit.co/ajax/2362467229@qq.com', {
+  fetch('https://formsubmit.co/ajax/Chenxianhong1980@163.com', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -368,7 +368,7 @@ form.addEventListener('submit', function(e) {
     const body = encodeURIComponent(
       `姓名：${name}\n联系方式：${contact}\n项目类型：${type}\n用户需求：${req}`
     );
-    window.location.href = `mailto:2362467229@qq.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:Chenxianhong1980@163.com?subject=${subject}&body=${body}`;
     showSuccess();
   });
 });

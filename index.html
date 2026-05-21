@@ -645,6 +645,26 @@ const observer = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.fade-up, .fade-left, .fade-right, .scale-in').forEach(el => observer.observe(el));
 
+// ======== 首页数字滚动（页面加载立即触发）========
+(function startHeroCounters() {
+  function animateCounter(el) {
+    if (el.dataset.animated) return;
+    el.dataset.animated = '1';
+    const target = parseInt(el.dataset.count);
+    const duration = 2000;
+    const start = performance.now();
+    function tick(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(eased * target);
+      if (progress < 1) requestAnimationFrame(tick);
+      else el.textContent = target;
+    }
+    requestAnimationFrame(tick);
+  }
+  document.querySelectorAll('.hero-stats [data-count]').forEach(el => animateCounter(el));
+})();
+
 // ======== Nav scroll ========
 window.addEventListener('scroll', () => {
   const nav = document.getElementById('nav');
